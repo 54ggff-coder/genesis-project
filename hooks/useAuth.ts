@@ -1,17 +1,33 @@
 "use client";
 
-import { useEffect, useState } from "react"; import { supabase } from "@/lib/supabase";
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase";
 
 export function useAuth() {
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-const [user, setUser] = useState(null);
+  useEffect(() => {
+    let mounted = true;
 
-useEffect(() => {
+    supabase.auth
+      .getUser()
+      .then(({ data, error }) => {
+        if (!mounted) return;
+        if (error) {
+          setUser(null);
+        } else {
+          setUser(data.user ?? null);
+        }
+      })
+      .finally(() => {
+        if (mounted) setLoading(false);
+      });
 
-supabase.auth.getUser().then(({ data }) => { setUser(data.user); });
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
-}, []);
-
-return { user };
-
+  return { user, loading };
 }
