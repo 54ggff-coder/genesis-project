@@ -1,0 +1,8 @@
+components/
+├── Navbar.tsx
+├── Footer.tsx
+├── Hero.tsx
+├── FeatureCard.tsx
+├── AssessmentCard.tsx
+├── ProgressBar.tsx
+└── Button.tsx
