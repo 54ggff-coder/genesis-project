@@ -2,7 +2,7 @@ import { supabase } from "./supabase";
 
 export async function getProfile(){
 
-const {
+const{
 
 data,
 
@@ -23,5 +23,21 @@ data,
 error
 
 };
+
+}
+
+export async function updateProfile(
+
+values:any
+
+){
+
+return await supabase
+
+.from("profiles")
+
+.update(values)
+
+.eq("id",values.id);
 
 }
