@@ -1,8 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import QuestionCard from "@/components/assessment/QuestionCard";
-import ProgressBar from "@/components/assessment/ProgressBar";
+// app/assessment/page.tsx
+import QuestionCard from "@/components/assessment/Questioncard";
+// بدلاً من
+// import QuestionCard from "@/components/assessment/QuestionCard";
+
+import ProgressBar from "./ProgressBar"; // استيراد محلي أوضح
+
 
 const questions = [
   {
