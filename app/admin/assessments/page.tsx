@@ -1,8 +1,8 @@
-export default function AboutPage() {
+export default function AdminPage() {
   return (
-    <main className="p-6">
-      <h1 className="text-2xl font-bold">About</h1>
-      <p>Coming soon.</p>
+    <main className="min-h-screen p-6">
+      <h1 className="text-2xl font-bold">Admin</h1>
+      <p className="text-gray-600 mt-2">Coming soon.</p>
     </main>
   );
 }
