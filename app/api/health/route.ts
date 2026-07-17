@@ -1,13 +1,4 @@
-import { NextResponse } from "next/server";
-
-export async function GET(){
-
-return NextResponse.json({
-
-status:"ok",
-
-project:"Project Genesis"
-
-});
-
+// app/api/health/route.ts
+export async function GET() {
+  return Response.json({ status: "ok", time: new Date().toISOString() });
 }
