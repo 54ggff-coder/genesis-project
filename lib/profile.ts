@@ -1,43 +1,19 @@
-import { supabase } from "./supabase";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
-export async function getProfile(){
-
-const{
-
-data,
-
-error
-
-}=await supabase
-
-.from("profiles")
-
-.select("*")
-
-.single();
-
-return{
-
-data,
-
-error
-
-};
-
+export interface Profile {
+  id: string;
+  full_name: string | null;
+  avatar_url: string | null;
+  bio: string | null;
+  updated_at: string;
 }
 
-export async function updateProfile(
+export async function getProfile(userId: string) {
+  const supabase = await createSupabaseServerClient();
+  return supabase.from("profiles").select("*").eq("id", userId).single();
+}
 
-values:any
-
-){
-
-return await supabase
-
-.from("profiles")
-
-.update(values)
-
-.eq("id",values.id);
-
+export async function updateProfile(userId: string, values: Partial<Profile>) {
+  const supabase = await createSupabaseServerClient();
+  return supabase.from("profiles").update(values).eq("id", userId);
 }
