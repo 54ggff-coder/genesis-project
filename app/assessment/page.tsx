@@ -5,18 +5,9 @@ import QuestionCard from "@/app/assessment/Questioncard";
 import ProgressBar from "./ProgressBar";
 
 const questions = [
-  {
-    id: 1,
-    question: "I enjoy solving difficult problems.",
-  },
-  {
-    id: 2,
-    question: "I like helping other people.",
-  },
-  {
-    id: 3,
-    question: "I learn new things quickly.",
-  },
+  { id: 1, question: "I enjoy solving difficult problems." },
+  { id: 2, question: "I like helping other people." },
+  { id: 3, question: "I learn new things quickly." },
 ];
 
 export default function AssessmentPage() {
