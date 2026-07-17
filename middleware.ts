@@ -3,16 +3,62 @@ import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({ request });
+
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    { cookies: { /* ...getAll/setAll from request.cookies */ } },
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) =>
+            request.cookies.set(name, value)
+          );
+          response = NextResponse.next({ request });
+          cookiesToSet.forEach(({ name, value, options }) =>
+            response.cookies.set(name, value, options)
+          );
+        },
+      },
+    }
   );
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // حماية الصفحات الداخلية فقط
+  const protectedPaths = ["/dashboard", "/profile", "/assessment", "/report", "/admin", "/settings"];
+  const isProtected = protectedPaths.some((p) =>
+    request.nextUrl.pathname.startsWith(p)
+  );
+
+  if (isProtected && !user) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
+    url.searchParams.set("redirectTo", request.nextUrl.pathname);
     return NextResponse.redirect(url);
   }
+
+  // توجيه المستخدم المسجّل بعيداً عن صفحات /login و /register
+  const authPaths = ["/login", "/register", "/forgot-password", "/reset-password"];
+  const isAuthPage = authPaths.some((p) =>
+    request.nextUrl.pathname.startsWith(p)
+  );
+
+  if (user && isAuthPage) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/dashboard";
+    return NextResponse.redirect(url);
+  }
+
   return response;
 }
+
+export const config = {
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+  ],
+};
