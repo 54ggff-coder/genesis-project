@@ -1,1 +1,3 @@
--- Seed data will be added later.
+-- Initial seed file
+
+select now();
