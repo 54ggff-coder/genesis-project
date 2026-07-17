@@ -1,25 +1,13 @@
-import FeatureCard from "./FeatureCard";
+type Props = {
+  title: string;
+  description: string;
+};
 
-export default function Features() {
+export default function FeatureCard({ title, description }: Props) {
   return (
-    <section className="py-20">
-      <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-4xl font-bold mb-10">Features</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          <FeatureCard
-            title="Hidden Skills"
-            description="Discover talents you never knew you had."
-          />
-          <FeatureCard
-            title="Career Paths"
-            description="Find careers matching your abilities."
-          />
-          <FeatureCard
-            title="Growth Plan"
-            description="Receive personalized development plans."
-          />
-        </div>
-      </div>
-    </section>
+    <div className="border rounded-2xl p-6 hover:shadow-lg transition-shadow">
+      <h3 className="text-xl font-semibold">{title}</h3>
+      <p className="mt-3 text-gray-600">{description}</p>
+    </div>
   );
 }
