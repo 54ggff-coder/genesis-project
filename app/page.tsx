@@ -1,40 +1,25 @@
-import Link from "next/link";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+
+import Hero from "@/components/home/Hero";
+import Features from "@/components/home/Features";
 
 export default function Home() {
+
   return (
-    <main className="min-h-screen bg-slate-50">
 
-      <section className="max-w-6xl mx-auto px-6 py-20">
+    <>
 
-        <h1 className="text-6xl font-bold">
-          Project Genesis
-        </h1>
+      <Navbar />
 
-        <p className="text-xl mt-6 text-gray-600 max-w-2xl">
-          Discover your hidden abilities and build your future through
-          intelligent assessments.
-        </p>
+      <Hero />
 
-        <div className="mt-10 flex gap-4">
+      <Features />
 
-          <Link
-            href="/assessment"
-            className="bg-black text-white px-6 py-3 rounded-xl"
-          >
-            Start Free Assessment
-          </Link>
+      <Footer />
 
-          <Link
-            href="/login"
-            className="border px-6 py-3 rounded-xl"
-          >
-            Login
-          </Link>
+    </>
 
-        </div>
-
-      </section>
-
-    </main>
   );
+
 }
