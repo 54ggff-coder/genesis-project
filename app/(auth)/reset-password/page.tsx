@@ -10,8 +10,6 @@ export default function ResetPasswordPage() {
   return (
     <div className="max-w-md mx-auto mt-20 px-6">
       <h1 className="text-3xl font-bold mb-6">Reset Password</h1>
-
-      {/* تمرير access_token إن كان موجودًا في رابط reset من Supabase */}
       <ResetPasswordForm accessToken={access_token} />
     </div>
   );
