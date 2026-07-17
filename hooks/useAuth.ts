@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/lib/supabase"; 
+
+npm i @supabase/ssr
 
 export function useAuth() {
   const [user, setUser] = useState<any>(null);
