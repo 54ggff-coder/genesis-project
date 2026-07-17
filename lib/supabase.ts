@@ -1,11 +1,28 @@
-// lib/supabase.ts
-import { createClient } from "@supabase/supabase-js";
+// lib/supabase.ts — للاستخدام داخل Server Components و Route Handlers
+import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+export async function createSupabaseServerClient() {
+  const cookieStore = await cookies();
 
-if (!url || !key) throw new Error("Missing Supabase env vars");
-
-export const supabase = createClient(url, key, {
-  auth: { persistSession: true, autoRefreshToken: true },
-});
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return cookieStore.getAll();
+        },
+        setAll(cookiesToSet) {
+          try {
+            cookiesToSet.forEach(({ name, value, options }) =>
+              cookieStore.set(name, value, options)
+            );
+          } catch {
+            // يُتجاهل إذا تم استدعاؤها من Server Component (المسموح فقط في Route Handlers / Server Actions)
+          }
+        },
+      },
+    }
+  );
+}
