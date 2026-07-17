@@ -1,33 +1,45 @@
+"use client";
+
 import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav className="flex justify-between items-center p-6 border-b bg-white">
+    <nav className="border-b bg-white">
+      <div className="max-w-7xl mx-auto h-16 flex items-center justify-between px-6">
 
-      <Link href="/" className="font-bold text-2xl">
-        Genesis
-      </Link>
-
-      <div className="flex gap-5">
-
-        <Link href="/">
-          Home
+        <Link
+          href="/"
+          className="text-2xl font-bold"
+        >
+          Genesis
         </Link>
 
-        <Link href="/assessment">
-          Assessment
-        </Link>
+        <div className="flex items-center gap-6">
 
-        <Link href="/dashboard">
-          Dashboard
-        </Link>
+          <Link href="/">Home</Link>
 
-        <Link href="/login">
-          Login
-        </Link>
+          <Link href="/assessment">
+            Assessment
+          </Link>
+
+          <Link href="/pricing">
+            Premium
+          </Link>
+
+          <Link href="/dashboard">
+            Dashboard
+          </Link>
+
+          <Link
+            href="/login"
+            className="bg-black text-white px-4 py-2 rounded-xl"
+          >
+            Login
+          </Link>
+
+        </div>
 
       </div>
-
     </nav>
   );
 }
