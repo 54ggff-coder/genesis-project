@@ -1,9 +1,9 @@
 "use client";
 
 // app/assessment/page.tsx
-import QuestionCard from "@/components/assessment/Questioncard";
+import QuestionCard from "@/@/app/assessment/Questioncard";
 // بدلاً من
-// import QuestionCard from "@/components/assessment/QuestionCard";
+// import QuestionCard from "@/@/app/assessment/Questioncard
 
 import ProgressBar from "./ProgressBar"; // استيراد محلي أوضح
 
