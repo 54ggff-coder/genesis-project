@@ -28,7 +28,9 @@ export async function middleware(request: NextRequest) {
     },
   });
 
-  const { data: { user } } = await supabase.auth.getUser();
+  // getSession أسرع من getUser لأنه لا يضرب قاعدة البيانات في كل طلب.
+  const { data: { session } } = await supabase.auth.getSession();
+  const user = session?.user ?? null;
   const path = request.nextUrl.pathname;
 
   if (PROTECTED.some((p) => path.startsWith(p)) && !user) {
@@ -48,5 +50,7 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)"],
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+  ],
 };
