@@ -1,25 +1,28 @@
-import { pgTable, text, serial, timestamp, boolean } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-zod";
-import { z } from "zod/v4";
+/**
+ * Database row types — DB schema is created via supabase/migrations/*.sql.
+ * Keep this file's types in sync with the SQL definitions.
+ */
 
-export const usersTable = pgTable("users", {
-  id: serial("id").primaryKey(),
-  username: text("username").notNull().unique(),
-  passwordHash: text("password_hash").notNull(),
-  displayName: text("display_name").notNull(),
-  role: text("role").notNull().default("user"),
-  isPremium: boolean("is_premium").notNull().default(false),
-  assessmentCount: serial("assessment_count"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
+export type UserRole = "user" | "admin" | "premium";
 
-export const insertUserSchema = createInsertSchema(usersTable).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-  assessmentCount: true,
-});
+export interface UserRow {
+  id: number;
+  username: string;
+  passwordHash: string;
+  displayName: string;
+  role: UserRole;
+  isPremium: boolean;
+  assessmentCount: number;
+  createdAt: string;
+  updatedAt: string;
+}
 
-export type InsertUser = z.infer<typeof insertUserSchema>;
-export type User = typeof usersTable.$inferSelect;
+export interface InsertUser {
+  username: string;
+  passwordHash: string;
+  displayName: string;
+  role?: UserRole;
+  isPremium?: boolean;
+}
+
+export type User = UserRow;
