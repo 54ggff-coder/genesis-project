@@ -1,11 +1,9 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+const nextConfig = {
   output: "export",
+  basePath: "/genesis-project",
+  assetPrefix: "/genesis-project/",
   images: {
     unoptimized: true,
   },
   trailingSlash: true,
 };
-
-export default nextConfig;
