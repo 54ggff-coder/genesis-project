@@ -1,1 +1,1 @@
-export type Database = {};
+export type { Database } from "./database.types";
