@@ -1,0 +1,4 @@
+git mv components/Navbar.tsx components/NavbarTemp.tsx
+git mv components/NavbarTemp.tsx components/Navbar.tsx
+git commit -m "Fix filename case"
+git push
