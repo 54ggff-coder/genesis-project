@@ -8,7 +8,7 @@ function ResetPasswordInner() {
   const searchParams = useSearchParams();
 
   // Supabase PKCE flow يضع ?code=... في الـredirect URL
-  const code = searchParams.get("code") ?? "";
+  const code = searchParams.get(https://nxtodtngqxapvpqoqmvx.supabase.co/rest/v1/) ?? "";
 
   return (
     <div className="max-w-md mx-auto mt-20 px-6">
