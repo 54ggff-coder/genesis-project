@@ -1,0 +1,3 @@
+- [Project Genesis Auth](genesis-auth.md) — custom JWT auth (username+password, no email); users table in lib/db; bcryptjs + jsonwebtoken in api-server
+- [Project Genesis i18n](genesis-i18n.md) — lightweight React context in src/lib/i18n.tsx; EN default, AR toggle; RTL via documentElement.dir
+- [Project Genesis Design](genesis-design.md) — forest green primary (hsl 145 58% 32%), warm slate bg, amber accent; NOT purple/indigo
