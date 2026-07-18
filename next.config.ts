@@ -1,14 +1,28 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "export",
-  typedRoutes: true,
-  trailingSlash: true,
-  images: {
-    unoptimized: true,
+  reactStrictMode: true,
+
+  eslint: {
+    ignoreDuringBuilds: true,
   },
-  basePath: "/genesis-project",
-  assetPrefix: "/genesis-project/",
+
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+  },
+
+  experimental: {
+    optimizePackageImports: [],
+  },
 };
 
 export default nextConfig;
