@@ -1,29 +1,62 @@
 "use client";
 
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
+import { supabaseBrowser } from "@/lib/supabase/client";
+import type { Profile } from "@/lib/profile";
 
-import { getProfile } from "@/lib/profile";
+export function useProfile() {
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-export function useProfile(){
+  useEffect(() => {
+    let mounted = true;
 
-const[profile,setProfile]=
+    async function load() {
+      try {
+        const { data: userData, error: userErr } =
+          await supabaseBrowser.auth.getUser();
+        if (userErr) throw userErr;
 
-useState<any>(null);
+        if (!userData.user) {
+          if (mounted) {
+            setProfile(null);
+            setLoading(false);
+          }
+          return;
+        }
 
-useEffect(()=>{
+        const { data, error: dbErr } = await supabaseBrowser
+          .from("profiles")
+          .select("*")
+          .eq("id", userData.user.id)
+          .single();
 
-getProfile().then((res)=>{
+        if (dbErr) throw dbErr;
 
-setProfile(res.data);
+        if (mounted) {
+          setProfile((data as Profile) ?? null);
+        }
+      } catch (err: unknown) {
+        const message =
+          err instanceof Error ? err.message : "Failed to load profile.";
+        if (mounted) setError(message);
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    }
 
-});
+    load();
 
-},[]);
+    const { data: sub } = supabaseBrowser.auth.onAuthStateChange(() => {
+      load();
+    });
 
-return{
+    return () => {
+      mounted = false;
+      sub.subscription.unsubscribe();
+    };
+  }, []);
 
-profile
-
-};
-
+  return { profile, loading, error, refetch: () => {} };
 }
