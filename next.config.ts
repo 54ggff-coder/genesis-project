@@ -8,10 +8,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "**.supabase.co" },
     ],
-  },
-  experimental: {
-    typedRoutes: true,
-  },
+  typedRoutes: true,
   async headers() {
     return [
       {
