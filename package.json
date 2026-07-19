@@ -11,16 +11,18 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "dependencies": {"@supabase/ssr": "^0.5.2",
-"clsx": "^2.1.1",
-"zod": "^3.23.8"
+  "dependencies": {
+    "@supabase/ssr": "^0.5.2",
+    "clsx": "^2.1.1",
+    "zod": "^3.23.8",
     "next": "^15.5.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
-  "devDependencies": {"tailwindcss": "^3.4.17",
-"postcss": "^8.4.49",
-"autoprefixer": "^10.4.20"
+  "devDependencies": {
+    "tailwindcss": "^3.4.17",
+    "postcss": "^8.4.49",
+    "autoprefixer": "^10.4.20",
     "@types/node": "^22.15.0",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
@@ -29,6 +31,6 @@
     "typescript": "^5.8.3"
   },
   "engines": {
-    "node": ">=20"
+    "node": "20.x"
   }
 }
